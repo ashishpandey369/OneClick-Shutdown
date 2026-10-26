@@ -1,42 +1,34 @@
 @echo off
-setlocal
+setlocal EnableExtensions
 title OneClick Shutdown
+color 0B
+cd /d "%~dp0"
 
-echo.
-echo  =========================================
-echo          OneClick Shutdown
-echo  =========================================
-echo.
-echo This utility will ask apps to close, clean
-echo temporary files, and then shut down Windows.
-echo.
-echo Save your work before continuing.
-echo.
-choice /C YN /N /M "Continue? [Y/N]: "
-if errorlevel 2 (
-    echo.
-    echo Cancelled. Nothing was started.
-    pause
-    exit /b 0
-)
-
-set "ENGINE=%~dp0scripts\ShutdownEngine.ps1"
-if not exist "%ENGINE%" (
-    echo.
-    echo ERROR: PowerShell engine was not found:
-    echo "%ENGINE%"
+if not exist "%~dp0scripts\ShutdownEngine.ps1" (
+    echo ERROR: scripts\ShutdownEngine.ps1 was not found.
+    echo Please extract the complete OneClick-Shutdown folder before running this file.
     pause
     exit /b 1
 )
 
-powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%ENGINE%"
-set "EXITCODE=%ERRORLEVEL%"
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\ShutdownEngine.ps1"
+set "RC=%ERRORLEVEL%"
+
+if "%RC%"=="0" (
+    echo.
+    echo Starting Windows shutdown...
+    shutdown.exe /s /t 0
+    exit /b 0
+)
+if "%RC%"=="10" (
+    echo.
+    echo Shutdown cancelled. Windows will remain on.
+    timeout /t 3 /nobreak >nul
+    exit /b 0
+)
 
 echo.
-if not "%EXITCODE%"=="0" (
-    echo OneClick Shutdown finished with exit code %EXITCODE%.
-) else (
-    echo OneClick Shutdown has finished.
-)
+echo Preparation did not finish safely (exit code %RC%).
+echo Windows will NOT be shut down.
 pause
-exit /b %EXITCODE%
+exit /b 1
