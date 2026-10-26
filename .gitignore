@@ -1,17 +1,7 @@
-# Runtime logs
-logs/
-Logs/
-
-# Temporary and backup files
-*.tmp
-*.bak
-*.log
-*.old
-~$*
-
-# Local editor and OS files
-.vscode/
-.idea/
-.DS_Store
+# Windows / editor noise
 Thumbs.db
 Desktop.ini
+*.log
+*.tmp
+.vscode/
+.idea/
