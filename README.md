@@ -2,6 +2,10 @@
 
 A small Windows batch + PowerShell utility that prepares a PC for shutdown.
 
+## Download
+
+**[⬇ Download OneClick Shutdown (ZIP)](https://github.com/ashishpandey369/OneClick-Shutdown/archive/refs/heads/main.zip)** — downloads the latest project ZIP directly. You can also select **Code → Download ZIP** on GitHub.
+
 ## Features
 
 - Requests visible user applications to close normally.
@@ -19,7 +23,7 @@ A small Windows batch + PowerShell utility that prepares a PC for shutdown.
 
 ## Download and use
 
-1. Download the ZIP from the repository's **Code → Download ZIP** option, or use the ZIP link in the repository's Releases section when available.
+1. Click the ZIP download link at the top of this README, or use **Code → Download ZIP** on GitHub.
 2. Extract the ZIP completely.
 3. Open the extracted `OneClick-Shutdown` folder.
 4. Double-click `OneClick-Shutdown.bat`.
